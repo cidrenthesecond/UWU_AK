@@ -1,0 +1,9 @@
+../Drivers/CMSIS/Include/core_cm0plus.h:741:22:__NVIC_EnableIRQ	2
+../Drivers/CMSIS/Include/core_cm0plus.h:850:22:__NVIC_SetPriority	2
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_rcc.h:1469:22:LL_RCC_SetI2SClockSource	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_bus.h:623:22:LL_APB1_GRP2_EnableClock	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_bus.h:843:22:LL_IOP_GRP1_EnableClock	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_spi.h:426:22:LL_SPI_SetStandard	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_spi.h:665:22:LL_SPI_SetRxFIFOThreshold	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_spi.h:874:22:LL_SPI_DisableNSSPulseMgt	1
+../Core/Src/spi.c:28:6:MX_SPI1_Init	1

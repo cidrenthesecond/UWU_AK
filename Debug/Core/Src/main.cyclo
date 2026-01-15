@@ -1,0 +1,16 @@
+../Drivers/CMSIS/Include/core_cm0plus.h:850:22:__NVIC_SetPriority	2
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_rcc.h:767:22:LL_RCC_HSI_Enable	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_rcc.h:825:26:LL_RCC_HSI_IsReady	2
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_rcc.h:851:22:LL_RCC_HSI_SetCalibTrimming	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_rcc.h:1137:22:LL_RCC_SetSysClkSource	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_rcc.h:1153:26:LL_RCC_GetSysClkSource	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_rcc.h:1194:22:LL_RCC_SetAHBPrescaler	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_rcc.h:1210:22:LL_RCC_SetAPB1Prescaler	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_rcc.h:1231:22:LL_RCC_SetHSIDiv	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_bus.h:350:22:LL_APB1_GRP1_EnableClock	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_bus.h:623:22:LL_APB1_GRP2_EnableClock	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_system.h:1430:22:LL_FLASH_SetLatency	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_gpio.h:887:22:LL_GPIO_SetOutputPin	1
+../Core/Src/main.c:68:5:main	1
+../Core/Src/main.c:127:6:SystemClock_Config	3
+../Core/Src/main.c:164:6:Error_Handler	1
