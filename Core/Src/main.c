@@ -109,9 +109,8 @@ int main(void)
 
   while (1)
   {
-	//mainSM();
-	buffercheck();
-	  //BlinkLED(1);
+	mainSM();
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
