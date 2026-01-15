@@ -14,10 +14,6 @@
 //#define CS_GPIO_Port  //Port on which CS is
 //#define CS_Pin //Pin on which CS is
 
-//CS macros
-#define CS_LOW() LL_GPIO_ResetOutputPin(NCS_GPIO_Port,NCS_Pin)
-#define CS_HIGH() LL_GPIO_SetOutputPin(NCS_GPIO_Port,NCS_Pin)
-
 //
 #define Macronix_ID 0xC2
 #define Memory_Type 0x23
@@ -493,136 +489,130 @@ void Chip_Erase()
 	Wait_While_Busy();
 }
 
-typedef struct {
-	uint8_t* data_ptr;
-	uint32_t count;
-}buffer_t;
-
-static buffer_t tx_buffer = {0};
-static buffer_t rx_buffer = {0};
-
-void SPI_Transmit_Data_IT(uint8_t *data, uint16_t size)
-{
-	tx_buffer.data_ptr = data;
-	tx_buffer.count = size;
-
-	LL_SPI_EnableIT_TXE(SPI1);
-	LL_SPI_Enable(SPI1);
-}
-
-void SPI_Read_Data_IT(uint8_t *data, uint32_t size)
-{
-	tx_buffer.count = size;
-
-	rx_buffer.data_ptr = data;
-	rx_buffer.count = size;
-
-	LL_SPI_EnableIT_TXE(SPI1);
-	LL_SPI_EnableIT_RXNE(SPI1);
-	LL_SPI_Enable(SPI1);
-}
-
-
-#define DUMMY_BYTE 0x00
-void spi_it_transmit_callback(void)
-{
-	if (tx_buffer.count > 0)
-	{
-		LL_SPI_TransmitData8(SPI1, *tx_buffer.data_ptr);
-
-		tx_buffer.data_ptr++;
-		tx_buffer.count--;
-	}
-	else
-	{
-		LL_SPI_TransmitData8(SPI1, DUMMY_BYTE);
-		tx_buffer.count--;
-	}
-
-	if(tx_buffer.count <= 0 && !LL_SPI_IsEnabledIT_RXNE(SPI1))
-	{
-		LL_SPI_DisableIT_TXE(SPI1);
-
-		while(LL_SPI_GetTxFIFOLevel(SPI1) != LL_SPI_TX_FIFO_EMPTY);
-
-		while(LL_SPI_IsActiveFlag_BSY(SPI1));
-
-		LL_SPI_Disable(SPI1);
-
-		while(LL_SPI_GetRxFIFOLevel(SPI1) != LL_SPI_RX_FIFO_EMPTY)
-		{ (void) LL_SPI_ReceiveData8(SPI1);}
-
-		LL_SPI_ClearFlag_OVR(SPI1);
-
-		CS_HIGH();
-	}
-}
-
-extern circularBuffer buffer;
-
-void spi_it_receive_callback()
-{
-	if(rx_buffer.count > 0)
-	{
-		//*rx_buffer.data_ptr = LL_SPI_ReceiveData8(SPI1);
-		bufferAppend(&buffer, LL_SPI_ReceiveData8(SPI1));
-		//rx_buffer.data_ptr++;
-		rx_buffer.count--;
-	}
-
-	if(rx_buffer.count <= 0)
-	{
-		LL_SPI_DisableIT_RXNE(SPI1);
-		LL_SPI_DisableIT_TXE(SPI1);
-
-		while(LL_SPI_GetTxFIFOLevel(SPI1) != LL_SPI_TX_FIFO_EMPTY);
-
-		while(LL_SPI_IsActiveFlag_BSY(SPI1));
-
-		LL_SPI_Disable(SPI1);
-
-		while(LL_SPI_GetRxFIFOLevel(SPI1) != LL_SPI_RX_FIFO_EMPTY)
-		{ (void) LL_SPI_ReceiveData8(SPI1);}
-
-		LL_SPI_ClearFlag_OVR(SPI1);
-
-		CS_HIGH();
-	}
-}
-
-
-
-
-void SPI1_IRQHANDLER(void)
-{
-	if(LL_SPI_IsActiveFlag_TXE(SPI1) && LL_SPI_IsEnabledIT_TXE(SPI1))
-	{
-		spi_it_transmit_callback();
-	}
-
-	if(LL_SPI_IsActiveFlag_RXNE(SPI1) && LL_SPI_IsEnabledIT_RXNE(SPI1))
-	{
-		spi_it_receive_callback();
-	}
-}
-
-
-void FAST_READ_IT(uint32_t address, uint8_t *data, uint16_t size)
-{
-	uint8_t tData[5] = {0};
-
-	tData[0] = FAST_READ;
-	tData[1] = (address>>16)&0xFF;
-	tData[2] = (address>>8)&0xFF;
-	tData[3] = (address)&0xFF;
-	tData[4] = 0x00; //dummy byte
-
-	CS_LOW();
-
-	SPI_Transmit_Data8(FLASH_SPI,tData,5);
-	LL_SPI_Disable(SPI1);
-	SPI_Read_Data_IT(data, size);
-}
+//typedef struct {
+//	uint8_t* data_ptr;
+//	uint32_t count;
+//}buffer_t;
+//
+//static buffer_t tx_buffer = {0};
+//
+//static uint32_t rxLeft;
+//
+//void SPI_Transmit_Data_IT(uint8_t *data, uint16_t size)
+//{
+//	tx_buffer.data_ptr = data;
+//	tx_buffer.count = size;
+//
+//	LL_SPI_EnableIT_TXE(SPI1);
+//	LL_SPI_Enable(SPI1);
+//}
+//
+//void SPI_Read_Data_IT(uint32_t size)
+//{
+//	rxLeft = size;
+//
+//	LL_SPI_EnableIT_TXE(SPI1);
+//	LL_SPI_EnableIT_RXNE(SPI1);
+//	LL_SPI_Enable(SPI1);
+//}
+//
+//
+//#define DUMMY_BYTE 0x00
+//void spi_it_transmit_callback(void)
+//{
+//	if (tx_buffer.count > 0)
+//	{
+//		LL_SPI_TransmitData8(SPI1, *tx_buffer.data_ptr);
+//
+//		tx_buffer.data_ptr++;
+//		tx_buffer.count--;
+//	}
+//	else
+//	{
+//		LL_SPI_TransmitData8(SPI1, DUMMY_BYTE);
+//		tx_buffer.count--;
+//	}
+//
+//	if(tx_buffer.count <= 0 && !LL_SPI_IsEnabledIT_RXNE(SPI1))
+//	{
+//		LL_SPI_DisableIT_TXE(SPI1);
+//
+//		while(LL_SPI_GetTxFIFOLevel(SPI1) != LL_SPI_TX_FIFO_EMPTY);
+//
+//		while(LL_SPI_IsActiveFlag_BSY(SPI1));
+//
+//		LL_SPI_Disable(SPI1);
+//
+//		while(LL_SPI_GetRxFIFOLevel(SPI1) != LL_SPI_RX_FIFO_EMPTY)
+//		{ (void) LL_SPI_ReceiveData8(SPI1);}
+//
+//		LL_SPI_ClearFlag_OVR(SPI1);
+//
+//		CS_HIGH();
+//	}
+//}
+//
+//void spi_it_receive_callback()
+//{
+//	if(rxLeft > 0)
+//	{
+//		BufferAppend(GetEMPTYBUFFER(), LL_SPI_ReceiveData8(SPI1));
+//		rxLeft--;
+//	}
+//
+//	if(rxLeft <= 0)
+//	{
+//		LL_SPI_DisableIT_RXNE(SPI1);
+//		LL_SPI_DisableIT_TXE(SPI1);
+//
+//		while(LL_SPI_GetTxFIFOLevel(SPI1) != LL_SPI_TX_FIFO_EMPTY);
+//
+//		while(LL_SPI_IsActiveFlag_BSY(SPI1));
+//
+//		LL_SPI_Disable(SPI1);
+//
+//		while(LL_SPI_GetRxFIFOLevel(SPI1) != LL_SPI_RX_FIFO_EMPTY)
+//		{ (void) LL_SPI_ReceiveData8(SPI1);}
+//
+//		LL_SPI_ClearFlag_OVR(SPI1);
+//
+//		CS_HIGH();
+//	}
+//}
+//
+//
+//
+//
+//void SPI1_IRQHANDLER(void)
+//{
+//	if(LL_SPI_IsActiveFlag_TXE(SPI1) && LL_SPI_IsEnabledIT_TXE(SPI1))
+//	{
+//		spi_it_transmit_callback();
+//	}
+//
+//	if(LL_SPI_IsActiveFlag_RXNE(SPI1) && LL_SPI_IsEnabledIT_RXNE(SPI1))
+//	{
+//		spi_it_receive_callback();
+//	}
+//}
+//
+//
+//void FAST_READ_IT(uint32_t address, uint8_t *data, uint16_t size)
+//{
+//	uint8_t tData[5] = {0};
+//
+//	tData[0] = FAST_READ;
+//	tData[1] = (address>>16)&0xFF;
+//	tData[2] = (address>>8)&0xFF;
+//	tData[3] = (address)&0xFF;
+//	tData[4] = 0x00; //dummy byte
+//
+//	CS_LOW();
+//
+//	SPI_Transmit_Data8(FLASH_SPI,tData,5);
+//	LL_SPI_Disable(SPI1);
+//	SPI_Read_Data_IT(size);
+//}
 
 
 

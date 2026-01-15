@@ -1,0 +1,5 @@
+../Core/Src/doublebuffer.c:13:11:GetEmptyBuffer	3
+../Core/Src/doublebuffer.c:21:6:BufferAppend	2
+../Core/Src/doublebuffer.c:28:6:BufferCommit	2
+../Core/Src/doublebuffer.c:37:11:GetReadyBuffer	3
+../Core/Src/doublebuffer.c:44:9:BufferTake	2

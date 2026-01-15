@@ -23,16 +23,6 @@ struct fileData{
 	uint32_t length;
 };
 
-typedef struct
-{
-	uint8_t data[4000];
-	volatile uint16_t head;
-	volatile uint16_t tail;
-} circularBuffer;
-
-void bufferAppend(circularBuffer* buffer, uint8_t data);
-
-
 enum file{
 	NONE = 0,
 	BOOT,
@@ -47,10 +37,5 @@ void TimerRoutine();
 void selectFileToPlay(enum file fileToPlay);
 void mainSM();
 void goIdle();
-
-void buffercheck();
-
-
-
 
 #endif /* INC_SYSTEM_H_ */

@@ -32,6 +32,10 @@
 #define RSTEN 0x66 //Reset enable
 #define RST 0x99 //Reset
 
+//CS macros
+#define CS_LOW() LL_GPIO_ResetOutputPin(NCS_GPIO_Port,NCS_Pin)
+#define CS_HIGH() LL_GPIO_SetOutputPin(NCS_GPIO_Port,NCS_Pin)
+
 
 struct memory_info
 {
@@ -74,7 +78,3 @@ uint16_t Read_Uint16t(uint32_t page, uint16_t offset);
 uint32_t BytesToWrite(uint32_t size, uint16_t offset);
 uint32_t BytesToModify(uint32_t size, uint16_t offset);
 
-//interrupt test
-void spi_it_transmit_callback(void);
-void spi_it_receive_callback();
-void FAST_READ_IT(uint32_t address, uint8_t *data, uint16_t size);

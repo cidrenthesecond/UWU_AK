@@ -8,7 +8,8 @@
 #include "main.h"
 #include "system.h"
 #include "spi_flash.h"
-#include <string.h>
+#include "spi_project.h"
+#include "doublebuffer.h"
 
 volatile uint32_t currentAddr;
 volatile uint32_t currentFileAddr;
@@ -21,38 +22,6 @@ static struct fileData SHOOTFile = {SHOOTAddr,SHOOTLength};
 volatile uint8_t sampleRequest_Flag = 1;
 
 volatile enum file filePlayed = NONE;
-
-circularBuffer buffer = {0};
-
-uint8_t falsebuffer = 0;
-
-void bufferAppend(circularBuffer* buffer, uint8_t data)
-{
-	buffer -> data[buffer -> head] = data;
-	buffer -> head++;
-	//if((buffer -> head) >= 3000) buffer -> head = 0;
-	if(buffer->head == buffer ->tail)
-		{
-		while(1) LL_GPIO_SetOutputPin(LED_GPIO_Port, LED_Pin);
-		}
-}
-
-uint8_t bufferTake(circularBuffer* buffer)
-{
-	uint8_t result = buffer -> data[buffer -> tail];
-	buffer -> tail++;
-	if((buffer -> tail) >= 4000) buffer -> tail = 0;
-	if(buffer->head == buffer ->tail)
-	{
-		buffer->head++;
-		buffer->head--;
-		while(1) BlinkLED(1);
-	}
-	return result;
-}
-
-
-
 
 void SystemBoot()
 {
@@ -203,6 +172,8 @@ void mainSM()
 		sampleRequest_Flag = 0;
 	}
 }
+
+
 
 void goIdle()
 {
