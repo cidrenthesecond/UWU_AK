@@ -128,14 +128,8 @@ void PlayFile(enum file fileToPlay)
 			break;
 	}
 	sampleRequest_Flag = 1;
-//	uint16_t index = 0;
-//	while(index < 2000)
-//	{
-//		bufferAppend(&buffer, Read_Byte(currentAddr));
-//		currentAddr = currentAddr + 6;
-//		index++;
-//	}
-	FAST_READ_IT(currentAddr,&falsebuffer,4000);
+
+	//FAST_READ_IT(currentAddr,&falsebuffer,4000);
 	LL_GPIO_SetOutputPin(NSD_GPIO_Port, NSD_Pin); // wlacz wzmacniacz
 	LL_TIM_EnableCounter(TIM1); //wlacz timer
 }
@@ -153,11 +147,10 @@ void TimerRoutine()
 
 	if(PWM_repetition >= REPETITIONS)
 	{
-		//dataToPlay = dataQueue;
-		dataToPlay = bufferTake(&buffer);
+		dataToPlay = dataQueue;
 		PWM_repetition = 0;
-		//sampleRequest_Flag = 1;
-		//currentAddr = currentAddr + 5;
+		sampleRequest_Flag = 1;
+		currentAddr++;
 	}
 }
 
@@ -209,11 +202,6 @@ void mainSM()
 		dataQueue = Read_Byte(currentAddr);
 		sampleRequest_Flag = 0;
 	}
-//	if(filePlayed != NONE)
-//	{
-//		bufferAppend(&buffer, Read_Byte(currentAddr));
-//		currentAddr = currentAddr + 6;
-//	}
 }
 
 void goIdle()
@@ -221,25 +209,9 @@ void goIdle()
 	LL_TIM_DisableCounter(TIM1);
 	LL_GPIO_ResetOutputPin(NSD_GPIO_Port, NSD_Pin);
 	currentAddr = 0;
-	memset(&buffer,0,sizeof(buffer));
-	buffer.head = 0;
-	buffer.tail= 0;
 	filePlayed = NONE;
 }
 
-uint8_t loops =0;
-
-void buffercheck()
-{
-	if(buffer.head >= 4000 && buffer.tail >= 3000)
-	{
-		buffer.head = 0;
-		currentAddr = currentAddr+4000;
-		LL_SPI_Enable(SPI1);
-		FAST_READ_IT(currentAddr, &falsebuffer, 4000);
-		loops++;
-	}
-}
 
 
 

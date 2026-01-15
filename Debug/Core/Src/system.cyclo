@@ -17,8 +17,7 @@
 ../Core/Src/system.c:57:6:SystemBoot	1
 ../Core/Src/system.c:93:6:BlinkLED	4
 ../Core/Src/system.c:104:6:PlayFile	5
-../Core/Src/system.c:149:6:TimerRoutine	2
-../Core/Src/system.c:164:6:selectFileToPlay	8
-../Core/Src/system.c:186:6:mainSM	6
-../Core/Src/system.c:219:6:goIdle	1
-../Core/Src/system.c:232:6:buffercheck	3
+../Core/Src/system.c:143:6:TimerRoutine	2
+../Core/Src/system.c:157:6:selectFileToPlay	8
+../Core/Src/system.c:179:6:mainSM	6
+../Core/Src/system.c:207:6:goIdle	1
