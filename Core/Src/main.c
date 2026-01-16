@@ -24,7 +24,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "spi_flash.h"
 #include "system.h"
 /* USER CODE END Includes */
 
@@ -57,8 +56,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-extern volatile uint32_t currentAddr;
-extern volatile enum file filePlayed;
+
 /* USER CODE END 0 */
 
 /**
@@ -102,14 +100,17 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   SystemBoot();
-  LL_GPIO_SetOutputPin(NSD_GPIO_Port, NSD_Pin);
+
+  /*---------------LEFT HERE FOR FUTURE ME------------------------
   //LL_TIM_EnableCounter(TIM1);
   //LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH4, LL_TIM_OCMODE_PWM1);
+  ----------------------------------------------------------------*/
 
   while (1)
   {
-	mainSM();
+	NewMain();
 
     /* USER CODE END WHILE */
 

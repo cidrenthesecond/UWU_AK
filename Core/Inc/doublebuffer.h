@@ -24,13 +24,16 @@ typedef struct{
 	volatile bufferStatus_t status;
 } buffer_t;
 
-buffer_t* GetEmptyBuffer();
-void BufferAppend(uint8_t data, buffer_t *buffer);
-void BufferCommit(buffer_t *buffer);
+uint8_t IsAnyBufferEmpty();
 
-buffer_t* GetReadyBuffer();
-uint8_t BufferTake(buffer_t *buffer);
+void GetEmptyBuffer();
+void BufferAppend(uint8_t data);
+void BufferCommit();
 
+uint8_t IsAnyBufferReady();
+void GetReadyBuffer();
+uint8_t BufferTake();
+void ClearBuffers();
 
 
 #endif /* INC_DOUBLEBUFFER_H_ */

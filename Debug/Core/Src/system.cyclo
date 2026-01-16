@@ -1,5 +1,4 @@
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_exti.h:265:22:LL_EXTI_EnableIT_0_31	1
-../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_exti.h:319:22:LL_EXTI_DisableIT_0_31	1
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_exti.h:1074:22:LL_EXTI_ClearFallingFlag_0_31	1
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_spi.h:358:22:LL_SPI_Enable	1
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_spi.h:1333:25:LL_SPI_ReceiveData8	1
@@ -9,13 +8,14 @@
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_tim.h:3682:22:LL_TIM_EnableAllOutputs	1
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_tim.h:3955:22:LL_TIM_ClearFlag_UPDATE	1
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_tim.h:4318:22:LL_TIM_EnableIT_UPDATE	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_tim.h:4329:22:LL_TIM_DisableIT_UPDATE	1
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_gpio.h:806:26:LL_GPIO_IsInputPinSet	2
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_gpio.h:887:22:LL_GPIO_SetOutputPin	1
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_gpio.h:916:22:LL_GPIO_ResetOutputPin	1
 ../Core/Src/system.c:26:6:SystemBoot	1
-../Core/Src/system.c:62:6:BlinkLED	4
-../Core/Src/system.c:73:6:PlayFile	5
-../Core/Src/system.c:112:6:TimerRoutine	2
-../Core/Src/system.c:126:6:selectFileToPlay	8
-../Core/Src/system.c:148:6:mainSM	6
-../Core/Src/system.c:178:6:goIdle	1
+../Core/Src/system.c:56:6:BlinkLED	4
+../Core/Src/system.c:67:6:PlayFile	6
+../Core/Src/system.c:113:6:TimerRoutine	2
+../Core/Src/system.c:125:6:selectFileToPlay	8
+../Core/Src/system.c:147:6:goIdle	2
+../Core/Src/system.c:159:6:NewMain	7

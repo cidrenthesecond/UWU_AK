@@ -19,8 +19,8 @@ Core/Src/system.o: ../Core/Src/system.c ../Core/Inc/main.h \
  ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_spi.h \
  ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_tim.h \
  ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_gpio.h \
- ../Core/Inc/system.h ../Core/Inc/spi_flash.h ../Core/Inc/main.h \
- ../Core/Inc/spi_project.h ../Core/Inc/doublebuffer.h
+ ../Core/Inc/system.h ../Core/Inc/spi_project.h \
+ ../Core/Inc/doublebuffer.h ../Core/Inc/main.h
 ../Core/Inc/main.h:
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_rcc.h:
 ../Drivers/CMSIS/Device/ST/STM32C0xx/Include/stm32c0xx.h:
@@ -43,7 +43,6 @@ Core/Src/system.o: ../Core/Src/system.c ../Core/Inc/main.h \
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_tim.h:
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_gpio.h:
 ../Core/Inc/system.h:
-../Core/Inc/spi_flash.h:
-../Core/Inc/main.h:
 ../Core/Inc/spi_project.h:
 ../Core/Inc/doublebuffer.h:
+../Core/Inc/main.h:
