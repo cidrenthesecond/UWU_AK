@@ -86,7 +86,7 @@ void SPI1_IRQHANDLER(void)
 {
 	if(LL_SPI_IsActiveFlag_TXE(SPI1) && LL_SPI_IsEnabledIT_TXE(SPI1))
     {
-			spi_it_transmit_callback();
+		spi_it_transmit_callback();
 	}
 	if(LL_SPI_IsActiveFlag_RXNE(SPI1) && LL_SPI_IsEnabledIT_RXNE(SPI1))
 	{

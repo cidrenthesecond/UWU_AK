@@ -148,7 +148,8 @@ void SysTick_Handler(void)
 void EXTI4_15_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI4_15_IRQn 0 */
-
+	LL_EXTI_DisableIT_0_31(LL_EXTI_LINE_8);
+	LL_EXTI_DisableIT_0_31(LL_EXTI_LINE_11);
   /* USER CODE END EXTI4_15_IRQn 0 */
   if (LL_EXTI_IsActiveFallingFlag_0_31(LL_EXTI_LINE_8) != RESET)
   {

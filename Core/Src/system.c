@@ -43,11 +43,11 @@ void SystemBoot()
 	LL_SPI_Enable(SPI1);
 	(void)LL_SPI_ReceiveData8(SPI1);
 
-	/* GOES TO GPIO.c
+	// GOES TO GPIO.c
 	//Turn off NVIC, BOOT cannot be interrupted
 	LL_EXTI_DisableIT_0_31(LL_EXTI_LINE_8);
 	LL_EXTI_DisableIT_0_31(LL_EXTI_LINE_11);
-	*/
+
 
 	selectFileToPlay(BOOT);
 }
@@ -147,12 +147,22 @@ void selectFileToPlay(enum file fileToPlay)
 void goIdle()
 {
 	LL_TIM_DisableIT_UPDATE(TIM1);
+
+	LL_EXTI_DisableIT_0_31(LL_EXTI_LINE_8);
+	LL_EXTI_DisableIT_0_31(LL_EXTI_LINE_11);
+
 	TIM1 -> CCR4 = 0x55;
-	for(uint32_t delay = 0; delay < 120000; delay++);
+	for(uint16_t delay = 0; delay < 20000; delay++);
 	LL_TIM_DisableCounter(TIM1);
 	LL_GPIO_ResetOutputPin(NSD_GPIO_Port, NSD_Pin);
 	currentAddr = 0;
 	filePlayed = NONE;
+
+	LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_8);
+	LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_11);
+
+	LL_EXTI_EnableIT_0_31(LL_EXTI_LINE_8);
+	LL_EXTI_EnableIT_0_31(LL_EXTI_LINE_11);
 	//ClearBuffers();
 }
 

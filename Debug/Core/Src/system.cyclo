@@ -1,4 +1,5 @@
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_exti.h:265:22:LL_EXTI_EnableIT_0_31	1
+../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_exti.h:319:22:LL_EXTI_DisableIT_0_31	1
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_exti.h:1074:22:LL_EXTI_ClearFallingFlag_0_31	1
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_spi.h:358:22:LL_SPI_Enable	1
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_spi.h:1333:25:LL_SPI_ReceiveData8	1
@@ -18,4 +19,4 @@
 ../Core/Src/system.c:113:6:TimerRoutine	2
 ../Core/Src/system.c:125:6:selectFileToPlay	8
 ../Core/Src/system.c:147:6:goIdle	2
-../Core/Src/system.c:159:6:NewMain	7
+../Core/Src/system.c:169:6:NewMain	7
