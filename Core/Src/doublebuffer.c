@@ -12,7 +12,6 @@
 static buffer_t buffer1 = {0};
 static buffer_t buffer2 = {0};
 
-
 // variables holding pointer to used buffer
 static buffer_t *currentWriteBuffer;
 static buffer_t *currentReadBuffer;
