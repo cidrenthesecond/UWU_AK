@@ -60,8 +60,8 @@ all: main-build
 main-build: UWU_AK.elf secondary-outputs
 
 # Tool invocations
-UWU_AK.elf UWU_AK.map: $(OBJS) $(USER_OBJS) C:\Users\1\STM32CubeIDE\workspace_1.19.0\UWU_AK\STM32C011F4PX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "UWU_AK.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Users\1\STM32CubeIDE\workspace_1.19.0\UWU_AK\STM32C011F4PX_FLASH.ld" --specs=nosys.specs -Wl,-Map="UWU_AK.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+UWU_AK.elf UWU_AK.map: $(OBJS) $(USER_OBJS) X:\STM32_Projects\UWU_AK\UWU_AK\STM32C011F4PX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "UWU_AK.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"X:\STM32_Projects\UWU_AK\UWU_AK\STM32C011F4PX_FLASH.ld" --specs=nosys.specs -Wl,-Map="UWU_AK.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

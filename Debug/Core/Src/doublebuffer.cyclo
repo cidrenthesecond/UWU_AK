@@ -1,8 +1,9 @@
-../Core/Src/doublebuffer.c:23:9:IsAnyBufferEmpty	3
-../Core/Src/doublebuffer.c:30:6:GetEmptyBuffer	3
-../Core/Src/doublebuffer.c:37:6:BufferAppend	2
-../Core/Src/doublebuffer.c:45:6:BufferCommit	2
-../Core/Src/doublebuffer.c:58:9:IsAnyBufferReady	3
-../Core/Src/doublebuffer.c:65:6:GetReadyBuffer	3
-../Core/Src/doublebuffer.c:72:9:BufferTake	2
-../Core/Src/doublebuffer.c:88:6:ClearBuffers	1
+../Core/Src/doublebuffer.c:20:9:IsAnyBufferEmpty	3
+../Core/Src/doublebuffer.c:27:6:GetEmptyBuffer	3
+../Core/Src/doublebuffer.c:42:6:BufferAppend	2
+../Core/Src/doublebuffer.c:50:6:BufferCommit	2
+../Core/Src/doublebuffer.c:61:9:IsAnyBufferReady	3
+../Core/Src/doublebuffer.c:68:6:GetReadyBuffer	3
+../Core/Src/doublebuffer.c:83:9:BufferTake	3
+../Core/Src/doublebuffer.c:107:6:ClearBuffers	1
+../Core/Src/doublebuffer.c:120:9:AreAllBuffersEmpty	3

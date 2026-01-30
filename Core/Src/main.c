@@ -34,7 +34,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define DEFAULT_STARTUP_VAL (0x80)
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
