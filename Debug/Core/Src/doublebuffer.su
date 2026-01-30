@@ -1,8 +1,9 @@
-../Core/Src/doublebuffer.c:23:9:IsAnyBufferEmpty	8	static
-../Core/Src/doublebuffer.c:30:6:GetEmptyBuffer	8	static
-../Core/Src/doublebuffer.c:37:6:BufferAppend	24	static
-../Core/Src/doublebuffer.c:45:6:BufferCommit	8	static
-../Core/Src/doublebuffer.c:58:9:IsAnyBufferReady	8	static
-../Core/Src/doublebuffer.c:65:6:GetReadyBuffer	8	static
-../Core/Src/doublebuffer.c:72:9:BufferTake	24	static
-../Core/Src/doublebuffer.c:88:6:ClearBuffers	8	static
+../Core/Src/doublebuffer.c:21:9:IsAnyBufferEmpty	8	static
+../Core/Src/doublebuffer.c:28:6:GetEmptyBuffer	8	static
+../Core/Src/doublebuffer.c:43:6:BufferAppend	24	static
+../Core/Src/doublebuffer.c:51:6:BufferCommit	8	static
+../Core/Src/doublebuffer.c:62:9:IsAnyBufferReady	8	static
+../Core/Src/doublebuffer.c:69:6:GetReadyBuffer	8	static
+../Core/Src/doublebuffer.c:84:9:BufferTake	24	static
+../Core/Src/doublebuffer.c:108:6:ClearBuffers	8	static
+../Core/Src/doublebuffer.c:121:9:AreAllBuffersEmpty	8	static

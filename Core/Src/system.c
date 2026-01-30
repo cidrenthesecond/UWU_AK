@@ -25,6 +25,10 @@ volatile enum file filePlayed = NONE;
 
 void SystemBoot()
 {
+	//Turn off NVIC, BOOT cannot be interrupted
+	LL_EXTI_DisableIT_0_31(LL_EXTI_LINE_8);
+	LL_EXTI_DisableIT_0_31(LL_EXTI_LINE_11);
+
 	LL_GPIO_ResetOutputPin(LED_GPIO_Port, LED_Pin); //Turn off LED
 	LL_GPIO_ResetOutputPin(NWP_GPIO_Port, NWP_Pin); //FLASH WriteProtect ON
 	LL_GPIO_SetOutputPin(NSD_GPIO_Port,NSD_Pin); //Turn off amplifier
@@ -43,13 +47,40 @@ void SystemBoot()
 	LL_SPI_Enable(SPI1);
 	(void)LL_SPI_ReceiveData8(SPI1);
 
-	// GOES TO GPIO.c
-	//Turn off NVIC, BOOT cannot be interrupted
+	selectFileToPlay(BOOT);
+
+	while((currentAddr < BOOTAddr + BOOTLength)&& !AreAllBuffersEmpty())
+	{
+		if(IsAnyBufferEmpty())
+			{
+				GetEmptyBuffer();
+
+				LL_SPI_Enable(SPI1);
+
+				uint16_t size;
+				uint16_t remainingBytes = (currentFileLength + currentFileAddr) - currentAddr;
+
+				if(remainingBytes >= BUFFER_SIZE) size = BUFFER_SIZE;
+				else size = (uint16_t)remainingBytes;
+
+				FAST_READ_IT(currentAddr,size);
+
+				currentAddr = currentAddr + size;
+			}
+	}
+
+	goIdle();
+
 	LL_EXTI_DisableIT_0_31(LL_EXTI_LINE_8);
 	LL_EXTI_DisableIT_0_31(LL_EXTI_LINE_11);
 
+	BlinkLED(3);
 
-	selectFileToPlay(BOOT);
+	LL_EXTI_EnableIT_0_31(LL_EXTI_LINE_8);
+	LL_EXTI_EnableIT_0_31(LL_EXTI_LINE_11);
+
+	LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_8);
+	LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_11);
 }
 
 //dodac obsluge jako obiekt to bedzie w miare uniwersalny kod
@@ -87,28 +118,36 @@ void PlayFile(enum file fileToPlay)
 			filePlayed = SHOOT;
 			break;
 		default:
-			while(1) LL_GPIO_SetOutputPin(LED_GPIO_Port, LED_Pin); //error break
+			//error break
 			break;
 	}
+
+	LL_EXTI_DisableIT_0_31(LL_EXTI_LINE_8);
+	LL_EXTI_DisableIT_0_31(LL_EXTI_LINE_11);
 
 	GetEmptyBuffer();
 
 	LL_SPI_Enable(SPI1);
 	FAST_READ_IT(currentAddr,BUFFER_SIZE);
+	currentAddr = currentAddr + BUFFER_SIZE;
 
 	while(!IsAnyBufferReady());
 
 	GetReadyBuffer();
+
 	LL_GPIO_SetOutputPin(NSD_GPIO_Port, NSD_Pin); // wlacz wzmacniacz
-	LL_TIM_EnableIT_UPDATE(TIM1);
+	for(uint16_t time =0 ; time < 20000; time++);
+
+	TIM1 -> CCR4 = 0x88;
 	LL_TIM_EnableCounter(TIM1); //wlacz timer
+	for(uint16_t time =0 ; time < 20000; time++);
+
+	LL_TIM_EnableIT_UPDATE(TIM1);
 }
 
 
 volatile uint8_t PWM_repetition = 0;
 volatile uint8_t dataToPlay = 0;
-volatile uint8_t dataQueue = 0;;
-
 
 void TimerRoutine()
 {
@@ -122,25 +161,26 @@ void TimerRoutine()
 	}
 }
 
+
 void selectFileToPlay(enum file fileToPlay)
 {
-	switch(fileToPlay)
+	if(filePlayed == NONE)
 	{
-		case SHOOT:
-			if(filePlayed == SHOOT) break;
-			PlayFile(SHOOT);
-			break;
-		case CLICK:
-			if(filePlayed == SHOOT || filePlayed == CLICK) break;
-			PlayFile(CLICK);
-			break;
-		case BOOT:
-			PlayFile(BOOT);
-			break;
-		default:
-			//BLAD nie powinno tak byc
-			while(1) LL_GPIO_SetOutputPin(LED_GPIO_Port, LED_Pin);
-			break;
+		switch(fileToPlay)
+		{
+			case SHOOT:
+				PlayFile(SHOOT);
+				break;
+			case CLICK:
+				PlayFile(CLICK);
+				break;
+			case BOOT:
+				PlayFile(BOOT);
+				break;
+			default:
+				//BLAD nie powinno tak byc
+				break;
+		}
 	}
 }
 
@@ -148,39 +188,27 @@ void goIdle()
 {
 	LL_TIM_DisableIT_UPDATE(TIM1);
 
-	LL_EXTI_DisableIT_0_31(LL_EXTI_LINE_8);
-	LL_EXTI_DisableIT_0_31(LL_EXTI_LINE_11);
-
-	TIM1 -> CCR4 = 0x55;
+	TIM1 -> CCR4 = PWM_STARTUP_VAL;
 	for(uint16_t delay = 0; delay < 20000; delay++);
+
 	LL_TIM_DisableCounter(TIM1);
 	LL_GPIO_ResetOutputPin(NSD_GPIO_Port, NSD_Pin);
+
 	currentAddr = 0;
 	filePlayed = NONE;
 
-	LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_8);
-	LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_11);
-
 	LL_EXTI_EnableIT_0_31(LL_EXTI_LINE_8);
 	LL_EXTI_EnableIT_0_31(LL_EXTI_LINE_11);
-	//ClearBuffers();
+
+	LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_8);
+	LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_11);
 }
+
+
 
 void NewMain()
 {
-	if(currentAddr >= BOOTAddr + BOOTLength)
-	{
-		goIdle();
-
-		LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_8);
-		LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_11);
-
-		LL_EXTI_EnableIT_0_31(LL_EXTI_LINE_8);
-		LL_EXTI_EnableIT_0_31(LL_EXTI_LINE_11);
-
-		BlinkLED(3);
-	}
-	if((currentAddr - currentFileAddr) >= currentFileLength)
+	if((currentAddr >= currentFileLength + currentFileAddr))
 	{
 		goIdle();
 		if(!LL_GPIO_IsInputPinSet(Trigger_GPIO_Port, Trigger_Pin)) selectFileToPlay(SHOOT);
@@ -188,16 +216,22 @@ void NewMain()
 
 	if(filePlayed != NONE)
 	{
-	uint16_t size;
 
 	if(IsAnyBufferEmpty())
 		{
 			GetEmptyBuffer();
 
 			LL_SPI_Enable(SPI1);
-			if(currentFileLength - (currentAddr - currentFileAddr) >= BUFFER_SIZE) size = BUFFER_SIZE;
-			else size = currentFileLength + currentFileAddr - currentAddr;
+
+			uint16_t size;
+			uint16_t remainingBytes = (currentFileLength + currentFileAddr) - currentAddr;
+
+			if(remainingBytes >= BUFFER_SIZE) size = BUFFER_SIZE;
+			else size = (uint16_t)remainingBytes;
+
 			FAST_READ_IT(currentAddr,size);
+
+			currentAddr = currentAddr + size;
 		}
 	}
 }

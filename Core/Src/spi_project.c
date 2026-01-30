@@ -8,7 +8,7 @@
 #include "spi_flash.h"
 #include "doublebuffer.h"
 
-//how many bytes left
+//how many bytes left usage for memory reading
 static uint32_t rxLeft;
 
 //Enables SPI via interrupt

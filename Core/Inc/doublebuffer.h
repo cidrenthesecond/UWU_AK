@@ -10,10 +10,11 @@
 
 #include "main.h"
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 1500 //1024
 
 typedef enum{
 	EMPTY = 0,
+	USED,
 	READY
 } bufferStatus_t;
 
@@ -34,6 +35,8 @@ uint8_t IsAnyBufferReady();
 void GetReadyBuffer();
 uint8_t BufferTake();
 void ClearBuffers();
+
+uint8_t AreAllBuffersEmpty();
 
 
 #endif /* INC_DOUBLEBUFFER_H_ */

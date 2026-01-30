@@ -13,10 +13,10 @@
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_gpio.h:806:26:LL_GPIO_IsInputPinSet	16	static
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_gpio.h:887:22:LL_GPIO_SetOutputPin	16	static
 ../Drivers/STM32C0xx_HAL_Driver/Inc/stm32c0xx_ll_gpio.h:916:22:LL_GPIO_ResetOutputPin	16	static
-../Core/Src/system.c:26:6:SystemBoot	8	static
-../Core/Src/system.c:56:6:BlinkLED	32	static
-../Core/Src/system.c:67:6:PlayFile	16	static
-../Core/Src/system.c:113:6:TimerRoutine	8	static
-../Core/Src/system.c:125:6:selectFileToPlay	16	static
-../Core/Src/system.c:147:6:goIdle	16	static
-../Core/Src/system.c:169:6:NewMain	16	static
+../Core/Src/system.c:26:6:SystemBoot	16	static
+../Core/Src/system.c:87:6:BlinkLED	32	static
+../Core/Src/system.c:98:6:PlayFile	24	static
+../Core/Src/system.c:152:6:TimerRoutine	8	static
+../Core/Src/system.c:165:6:selectFileToPlay	16	static
+../Core/Src/system.c:187:6:goIdle	16	static
+../Core/Src/system.c:209:6:NewMain	16	static
