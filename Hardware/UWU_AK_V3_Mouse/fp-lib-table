@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "SOIC127P600X175-8N")(type "Altium Designer")(uri "${KIPRJMOD}/LIB_LM4889MA_NOPB/LM4889MA_NOPB/Altium/SOIC127P600X175-8N.PcbLib")(options "")(descr ""))
+)

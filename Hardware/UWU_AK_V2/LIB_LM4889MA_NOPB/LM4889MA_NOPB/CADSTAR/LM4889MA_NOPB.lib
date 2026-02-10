@@ -1,0 +1,16 @@
+.LM4889MA_NOPB :1 ;1W AUDIO POWER AMP, LM4889MA
+SOIC127P600X175-8N
+*STM IC
+*NGS
+*PLB 1="'SHUTDOWN'" 2="BYPASS" 3="+IN" 4="-IN" 5="VO1" 6="VDD" 7="GND" 8="VO2"
+*MXP 8
+*DFN LM4889MA_NOPB
+~!TME Electronic Components Part Number (-)
+~!TME Electronic Components Price/Stock (-)
+~!Manufacturer_Name (Texas Instruments)
+~!Manufacturer_Part_Number (LM4889MA/NOPB)
+~!Link Datasheet (http://www.ti.com/lit/ds/symlink/lm4889.pdf)
+~!Height (1.75mm)
+~!3D_Model (LM4889MA_NOPB)
+LM4889MA_NOPB
+1.1!U 2.1!U 3.1!U 4.1!U 8.1!U 7.1!U 6.1!U 5.1!U 

@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "LM4889MA_NOPB")(type "KiCad")(uri "${KIPRJMOD}/LIB_LM4889MA_NOPB/LM4889MA_NOPB/KiCad/LM4889MA_NOPB.kicad_sym")(options "")(descr ""))
+)

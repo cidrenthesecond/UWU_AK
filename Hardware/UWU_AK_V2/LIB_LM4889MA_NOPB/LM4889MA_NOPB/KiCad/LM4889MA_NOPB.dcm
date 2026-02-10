@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP LM4889MA_NOPB
+D 1W AUDIO POWER AMP, LM4889MA
+K
+F http://www.ti.com/lit/ds/symlink/lm4889.pdf
+$ENDCMP
+#
+#End Doc Library

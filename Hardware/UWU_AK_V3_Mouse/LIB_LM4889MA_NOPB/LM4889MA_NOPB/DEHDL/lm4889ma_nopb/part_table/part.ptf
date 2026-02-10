@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'LM4889MA_NOPB'
+CLASS = IC
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "TME_ELECTRONIC_COMPONENTS_PART_NUMBER", "TME_ELECTRONIC_COMPONENTS_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Texas Instruments", "LM4889MA/NOPB" (!) = "", "SOIC127P600X175-8N", "Small Outline Packages", "", "", "1W AUDIO POWER AMP, LM4889MA", "http://www.ti.com/lit/ds/symlink/lm4889.pdf", "1.75 mm"
+END_PART
+
+END.
